@@ -10,7 +10,7 @@
 Ruchi Hegde
 * Pitt CS, 2025
 * ruh32@pitt.edu
-* ruchi8987 in the CSC Discord
+* ruchi8997 in the CSC Discord
 
 Julianne Kruse
 * Pitt CS, 2025
