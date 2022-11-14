@@ -6,23 +6,22 @@
 //
 
 import UIKit
-
 class SignUpStep1ViewController: UIViewController {
 
     @IBOutlet weak var nameFieldLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     
-    var user: User?
+    var user: User = User(name: "", email: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.user=User()
+        //self.user=User(name: "", email: "")
 
         // Do any additional setup after loading the view.
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.user?.name = nameField.text
+        self.user = User(name: nameField.text!, email: "")
         let step2VC = segue.destination as! SignUpStep2ViewController
         step2VC.user = self.user
     }
