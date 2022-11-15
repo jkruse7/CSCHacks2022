@@ -69,12 +69,12 @@ class LoginViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Log in"
         view.backgroundColor = .white
-
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -100,9 +100,9 @@ class LoginViewController: UIViewController {
         emailField.frame = CGRect(x: 30, y:  imageView.bottom+10, width: scrollView.width-60, height: 52)
         
         passwordField.frame = CGRect(x: 30, y:  emailField.bottom+10, width: scrollView.width-60, height: 52)
-
+        
         loginButton.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
-
+        
     }
     
     @objc private func loginButtonTapped() {
@@ -131,6 +131,25 @@ class LoginViewController: UIViewController {
             }
             
             let user = result.user
+            
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail, completion: {result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"] as? String,
+                          let lastName = userData["last_name"] as? String else {
+                        return
+                    }
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                    
+                case .failure(let error):
+                    print("failed to read data with error \(error)")
+                }
+            })
+            
+            UserDefaults.standard.set(email, forKey: "email")   // saves the user's email
+            
             print("Logged in user: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         })
@@ -150,7 +169,7 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-
+    
 }
 
 extension LoginViewController: UITextFieldDelegate{
