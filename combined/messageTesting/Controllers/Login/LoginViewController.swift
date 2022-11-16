@@ -59,23 +59,23 @@ class LoginViewController: UIViewController {
         return field
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Log In", for: .normal)
-        button.backgroundColor = .link
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        return button
-    }()
+    
+    @IBOutlet weak var loginButton: UIButton!
+    private func configureButton(){
+        loginButton.setTitle("Log In", for: .normal)
+        loginButton.backgroundColor = .link
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.layer.cornerRadius = 12
+        loginButton.layer.masksToBounds = true
+        loginButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureButton()
         title = "Log in"
         view.backgroundColor = .white
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister)) //why is it not appearing...
         
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
@@ -127,6 +127,7 @@ class LoginViewController: UIViewController {
             }
             guard let result = authResult, error == nil else{
                 print("failed to log in user with email")
+                //should not move to next page
                 return
             }
             
@@ -151,7 +152,10 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.set(email, forKey: "email")   // saves the user's email
             
             print("Logged in user: \(user)")
-//            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            //strongSelf!.navigationController?.present(MatchesViewController(), animated: true, completion: nil)
+            //in here we need to send the user to the chats controller -- segue to the chats controller
+            //self!.present(MatchesViewController(), animated: true, completion: nil)
         })
     }
     

@@ -12,7 +12,8 @@ import JGProgressHUD
 class RegisterViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
-
+    public var first = ""
+    public var last = ""
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -179,6 +180,8 @@ class RegisterViewController: UIViewController {
             alertUserLoginError()
             return
         }
+        first = firstName
+        last = lastName
         spinner.show(in: view)
         //Firebase login
         DatabaseManager.shared.userExists(with: email, completion: {[weak self] exists in
@@ -200,8 +203,11 @@ class RegisterViewController: UIViewController {
                     return
                 }
                 let chatUser = ChatAppUser(firstName: firstName,
-                                          lastName: lastName,
-                                          emailAddress: email)
+                    lastName: lastName,
+                    emailAddress: email, year: "",
+                                           firstPref: "", secondPref: "", Gender: "", day:"", drink:"", cleaning:"", overnight:"", room:"", p: 0, house: 0, t: "", worst: "", breaker:""
+                            
+                )
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success  in
                     if success {
                         // upload image
@@ -244,6 +250,7 @@ class RegisterViewController: UIViewController {
 //        let vc = QuestionsViewController()
 ////        vc.title = "create account"
 //        navigationController?.pushViewController(vc, animated: true)
+        // here should send to the questionsview controller
     }
     
 

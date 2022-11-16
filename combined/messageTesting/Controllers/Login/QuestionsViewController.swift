@@ -9,12 +9,20 @@ import UIKit
 import SwiftUI
 import PhotosUI
 import FirebaseAuth
+import FirebaseDatabase
 
 class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
     }
+    var count = 0
+    let profile = RegisterViewController()
+    @IBOutlet weak var temp: UITextField!
+    @IBOutlet weak var deal: UITextField!
+    @IBOutlet weak var party: UISlider!
+    @IBOutlet weak var home: UISlider!
+    @IBOutlet weak var habit: UITextField!
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -23,13 +31,15 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         return pickerData.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-           return pickerData[row]
+        count = row
+        return pickerData[row]
     }
     
     let scrollView = UIScrollView()
     let contentView = UIView()
     @IBOutlet weak var picker: UIPickerView!
     var pickerData: [String] = [String]()
+    var refArtists: DatabaseReference!
 //    var user: User?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +47,8 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.picker.delegate = self
         self.picker.dataSource = self
         pickerData = ["1", "2", "3", "4", "5", "6"]
+        refArtists = Database.database().reference()
+        
     }
     override func viewDidAppear(_ animated: Bool)
     {
@@ -45,6 +57,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         validateAuth()
                 
     }
+    
     private func validateAuth(){
         if FirebaseAuth.Auth.auth().currentUser == nil{
             print("not logged in")
@@ -56,9 +69,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         else{
             print("logged in")
             // PRESS THE BUTTON BY ITSELFFFFFFFFFFFFFFFFFFFFF
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//            let nextViewController = storyBoard.instantiateViewController(withIdentifier: ConversationsViewController.identifier) as! ConversationsViewController
-//            self.present(nextViewController, animated:true, completion:nil)
+            
         }
     }
         // Do any additional setup after loading the view.
@@ -87,7 +98,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option5 = UIAction(title: "Graduate Student") { (action) in
             self.tapMeButton.setTitle("Graduate Student", for: .normal)
         }
-        let menu = UIMenu(title: "Select your year...", children: [option1, option2, option3, option4, option5])
+        let menu = UIMenu(title: "Select your year", children: [option1, option2, option3, option4, option5])
         tapMeButton.menu = menu
     }
     
@@ -175,7 +186,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option25 = UIAction(title: "Sutherland Hall") { (action) in
             self.FirstPref.setTitle("Sutherland Hall", for: .normal)
         }
-        let menu = UIMenu(title: "Select your first preference...", children: [option1, option2, option3, option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14, option15, option16, option17, option18, option19, option20, option21, option22, option23, option24, option25])
+        let menu = UIMenu(title: "Select your first preference", children: [option1, option2, option3, option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14, option15, option16, option17, option18, option19, option20, option21, option22, option23, option24, option25])
         FirstPref.menu = menu
     }
     
@@ -263,7 +274,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option25 = UIAction(title: "Sutherland Hall") { (action) in
             self.SecondPref.setTitle("Sutherland Hall", for: .normal)
         }
-        let menu = UIMenu(title: "Select your second preference...", children: [option1, option2, option3, option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14, option15, option16, option17, option18, option19, option20, option21, option22, option23, option24, option25])
+        let menu = UIMenu(title: "Select your second preference", children: [option1, option2, option3, option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14, option15, option16, option17, option18, option19, option20, option21, option22, option23, option24, option25])
         SecondPref.menu = menu
     }
     @IBOutlet weak var gender: UIButton!
@@ -283,7 +294,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option3 = UIAction(title: "No preference") { (action) in
             self.gender.setTitle("No preference", for: .normal)
         }
-        let menu = UIMenu(title: "What is your gender preference...", children: [option1, option2, option3])
+        let menu = UIMenu(title: "What is your gender preference?", children: [option1, option2, option3])
         gender.menu = menu
     }
     
@@ -302,7 +313,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option2 = UIAction(title: "night person") { (action) in
             self.morning.setTitle("night person", for: .normal)
         }
-        let menu = UIMenu(title: "Are you a morning or night person...", children: [option1, option2])
+        let menu = UIMenu(title: "Are you a morning or night person?", children: [option1, option2])
         morning.menu = menu
     }
     
@@ -321,7 +332,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option2 = UIAction(title: "No") { (action) in
             self.drugs.setTitle("No", for: .normal)
         }
-        let menu = UIMenu(title: "Do you have a drugs/alcohol preference...", children: [option1, option2])
+        let menu = UIMenu(title: "Do you have a drugs/alcohol preference?", children: [option1, option2])
         drugs.menu = menu
     }
     
@@ -344,7 +355,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option3 = UIAction(title: "A bit in between") { (action) in
             self.clean.setTitle("A bit in between", for: .normal)
         }
-        let menu = UIMenu(title: "Are you clean or messy...", children: [option1, option2, option3])
+        let menu = UIMenu(title: "Are you clean or messy?", children: [option1, option2, option3])
         clean.menu = menu
     }
     
@@ -366,7 +377,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let option3 = UIAction(title: "Need to get my approval first") { (action) in
             self.guest.setTitle("Need to get my approval first", for: .normal)
         }
-        let menu = UIMenu(title: "How do you feel about overnight guests...", children: [option1, option2, option3])
+        let menu = UIMenu(title: "How do you feel about overnight guests?", children: [option1, option2, option3])
         guest.menu = menu
     }
     
@@ -389,10 +400,54 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         configureGuestsButtonMenu()
     }
     
+    
+    // Get a reference to the database service
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    // do the code where u check if each input is not nil and then do it
+    
+    func updateProfile(year: String, firstPref: String, secondPref: String, Gender: String, morning: String, drink: String, clean: String, guests: String, room: String, p: String, house: String, t: String, worst: String, breaker: String){
+        let user = [
+            "first_name": profile.first,
+            "last_name": profile.last,
+            "First Preference": firstPref,
+            "Second Preference": secondPref,
+            "Gender": Gender,
+            "Morning or Night": morning,
+            "Drugs and Drinks": drink,
+            "Clean or Messy": clean,
+            "Overnight": guests,
+            "Room": room,
+            "party!": p,
+            "house": house,
+            "temp": t,
+            "worst": worst,
+            "dealbreakers": breaker,
+            "year": year
+        ] as [String : Any]
+        let currentUser = Auth.auth().currentUser?.email
+        let current = currentUser!.replacingOccurrences(of: ".", with: "-")
+        let curr = current.replacingOccurrences(of: "@", with: "-")
+        refArtists.child(curr).setValue(user)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let year =  tapMeButton.currentTitle
+        let firstPref = FirstPref.currentTitle
+        let secondPref = SecondPref.currentTitle
+        let Gender = gender.currentTitle
+        let day = morning.currentTitle
+        let drink = drugs.currentTitle
+        let cleaning = clean.currentTitle
+        let overnight = guest.currentTitle
+        let room = pickerData[count]
+        let p = String(party.value).replacingOccurrences(of: ".", with: "-")
+        let house = String(home.value).replacingOccurrences(of: ".", with: "-")
+        let t = temp.text
+        let worst = habit.text
+        let breaker = deal.text
+
+        updateProfile(year: year!, firstPref: firstPref!, secondPref: secondPref!, Gender: Gender!, morning: day!, drink: drink!, clean: cleaning!, guests: overnight!, room: room, p: p, house: house, t: t!, worst: worst!, breaker: breaker!)
+        
     }
 
 }

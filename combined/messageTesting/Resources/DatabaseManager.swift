@@ -56,7 +56,21 @@ extension DatabaseManager{
         // Deliminating users by their email address, so we cannot have two with the same email
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
-            "last_name": user.lastName
+            "last_name": user.lastName,
+            "year": user.year,
+            "firstPref": user.firstPref,
+            "secondPref": user.secondPref,
+            "Gender": user.Gender,
+            "day": user.day,
+            "drink": user.drink,
+            "cleaning": user.cleaning,
+            "overnight": user.overnight,
+            "room": user.room,
+            "party": user.p,
+            "house": user.house,
+            "temp": user.t,
+            "worst": user.worst,
+            "dealbreakers": user.breaker
         ], withCompletionBlock: {error, _ in
             guard error == nil else {
                 print("failed to write to database")
@@ -527,6 +541,20 @@ struct ChatAppUser{
     let firstName: String
     let lastName: String
     let emailAddress: String
+    let year: String
+    let firstPref: String
+    let secondPref: String
+    let Gender: String
+    let day: String
+    let drink: String
+    let cleaning: String
+    let overnight: String
+    let room: String
+    let p: Float
+    let house: Float
+    let t: String
+    let worst: String
+    let breaker: String
     // Add other variables here
     
     var safeEmail: String{
