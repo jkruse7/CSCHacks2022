@@ -99,25 +99,23 @@ class RegisterViewController: UIViewController {
     }()
     
     
-    private let registerButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Register", for: .normal)
-        button.backgroundColor = .systemGreen
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        return button
-    }()
+    @IBOutlet weak var reg: UIButton!
+    private func configureReg() {
+        reg.setTitle("Register", for: .normal)
+        reg.backgroundColor = .systemGreen
+        reg.setTitleColor(.white, for: .normal)
+        reg.layer.cornerRadius = 12
+        reg.layer.masksToBounds = true
+        reg.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureReg()
         title = "Register"
         view.backgroundColor = .white
 
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
-        
-        registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
         emailField.delegate = self
         passwordField.delegate = self
@@ -129,7 +127,7 @@ class RegisterViewController: UIViewController {
         scrollView.addSubview(lastNameField)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
-        scrollView.addSubview(registerButton)
+        scrollView.addSubview(reg)
         
         imageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
@@ -157,7 +155,7 @@ class RegisterViewController: UIViewController {
         
         passwordField.frame = CGRect(x: 30, y:  emailField.bottom+10, width: scrollView.width-60, height: 52)
 
-        registerButton.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
+        reg.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
 
     }
     

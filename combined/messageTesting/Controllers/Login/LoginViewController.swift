@@ -70,13 +70,22 @@ class LoginViewController: UIViewController {
         loginButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
     }
     
+    @IBOutlet weak var register: UIButton!
+    private func configureRegister(){
+        register.setTitle("Register New User", for: .normal)
+        register.backgroundColor = .red
+        register.setTitleColor(.white, for: .normal)
+        register.layer.cornerRadius = 12
+        register.layer.masksToBounds = true
+        register.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureButton()
+        configureRegister()
         title = "Log in"
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister)) //why is it not appearing...
-        
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         emailField.delegate = self
@@ -88,6 +97,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(register)
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,13 +105,15 @@ class LoginViewController: UIViewController {
         scrollView.frame = view.bounds
         
         let size = view.width/3
-        imageView.frame = CGRect(x: (view.width-size)/2, y: 20, width: size, height: size)
+        imageView.frame = CGRect(x: (view.width-size)/2, y: 100, width: size, height: size)
         
         emailField.frame = CGRect(x: 30, y:  imageView.bottom+10, width: scrollView.width-60, height: 52)
         
         passwordField.frame = CGRect(x: 30, y:  emailField.bottom+10, width: scrollView.width-60, height: 52)
         
         loginButton.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
+        
+        register.frame = CGRect(x: 30, y: loginButton.bottom+1, width: scrollView.width-60, height: 52)
         
     }
     
@@ -165,12 +177,6 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title:"Dismiss", style: .cancel, handler: nil))
         
         present(alert, animated: true)
-    }
-    
-    @objc private func didTapRegister() {
-        let vc = RegisterViewController()
-        vc.title = "create account"
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     

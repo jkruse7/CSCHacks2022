@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		248245EC29244E5400504990 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 248245EB29244E5300504990 /* GoogleService-Info.plist */; };
+		248245F12925A13300504990 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248245F02925A13200504990 /* MyProfileViewController.swift */; };
 		60639C7529230E6F00C9F1ED /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60639C7429230E6F00C9F1ED /* StorageManager.swift */; };
 		60639C7829230EFD00C9F1ED /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 60639C7729230EFD00C9F1ED /* FirebaseStorage */; };
 		60639C7A29230F0400C9F1ED /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 60639C7929230F0400C9F1ED /* FirebaseStorageCombine-Community */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		248245EB29244E5300504990 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		248245F02925A13200504990 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		60639C7429230E6F00C9F1ED /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		60639C7B292334D100C9F1ED /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		607D47942923CF2F0036001D /* QuestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				607D479A2923E2170036001D /* HomeViewController.swift */,
 				60AF71C6291FD9B40094AC35 /* ConversationsViewController.swift */,
 				60AF7228292040A50094AC35 /* ChatViewController.swift */,
+				248245F02925A13200504990 /* MyProfileViewController.swift */,
 				60AF7204291FDB380094AC35 /* Login */,
 				60AF71FC291FDAF10094AC35 /* PhotoViewerViewController.swift */,
 				60AF71FE291FDAFD0094AC35 /* VideoPlayerViewController.swift */,
@@ -424,6 +427,7 @@
 				60AF71C3291FD9B40094AC35 /* AppDelegate.swift in Sources */,
 				607D47A12923E2170036001D /* TinderViewController.swift in Sources */,
 				60AF7203291FDB170094AC35 /* ProfileViewController.swift in Sources */,
+				248245F12925A13300504990 /* MyProfileViewController.swift in Sources */,
 				60AF71C5291FD9B40094AC35 /* SceneDelegate.swift in Sources */,
 				60639C7C292334D100C9F1ED /* ConversationTableViewCell.swift in Sources */,
 				607D479F2923E2170036001D /* HomeViewController.swift in Sources */,

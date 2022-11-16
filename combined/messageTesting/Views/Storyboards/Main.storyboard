@@ -84,7 +84,7 @@
         <!--Profile-->
         <scene sceneID="wnL-Ka-HZs">
             <objects>
-                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="2c4-9t-9Kp" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="2c4-9t-9Kp" customClass="MyProfileViewController" customModule="messageTesting" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xEH-Q6-aKN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,7 +133,7 @@
         <!--Messages-->
         <scene sceneID="Ucp-de-J7t">
             <objects>
-                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="06R-ML-ucL" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="06R-ML-ucL" customClass="ChatViewController" customModule="messageTesting" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tHh-74-mpz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -678,6 +678,15 @@
                                     <segue destination="fEo-ao-54r" kind="show" identifier="segue" id="K9F-zs-JlZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HD1-0z-ok2">
+                                <rect key="frame" x="166" y="809" width="83" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="register"/>
+                                <connections>
+                                    <segue destination="fbn-pC-95T" kind="show" id="Lat-gB-W1D"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VBq-AS-8OZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -686,11 +695,42 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="loginButton" destination="NLZ-dk-ZYR" id="Jaa-EB-dxe"/>
+                        <outlet property="register" destination="HD1-0z-ok2" id="0WD-d2-ZLz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhP-ZG-JlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2672" y="712"/>
+            <point key="canvasLocation" x="-2955" y="712"/>
+        </scene>
+        <!--Register View Controller-->
+        <scene sceneID="rZZ-vl-TYp">
+            <objects>
+                <viewController id="fbn-pC-95T" customClass="RegisterViewController" customModule="messageTesting" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W7y-ai-FYG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yI4-cp-cIb">
+                                <rect key="frame" x="166" y="778" width="83" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="register"/>
+                                <connections>
+                                    <segue destination="6k1-Bf-e2b" kind="show" id="l7A-cf-XaN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UiH-d9-c9C"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hMo-mN-eto"/>
+                    <connections>
+                        <outlet property="reg" destination="yI4-cp-cIb" id="S2M-XU-kEd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U4C-f4-4Uh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2144" y="-84"/>
         </scene>
         <!--Questions View Controller-->
         <scene sceneID="z6s-he-wnd">
@@ -701,7 +741,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xcw-vg-E0Y">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="789"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DoQ-5R-1lj">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1611.5"/>
@@ -959,15 +999,16 @@
                         <outlet property="picker" destination="mvV-bG-YJb" id="aBs-33-SXG"/>
                         <outlet property="tapMeButton" destination="i9e-C4-LvO" id="K93-7T-HGb"/>
                         <outlet property="temp" destination="YGJ-s1-YCd" id="d6v-Q9-iYe"/>
+                        <outlet property="yea" destination="ubI-Mq-uef" id="CMw-nI-bUn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEN-bj-H2I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1316" y="155"/>
+            <point key="canvasLocation" x="-570" y="-25"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1Y3-Gc-Hu8"/>
+        <segue reference="Lsc-9l-hi9"/>
         <segue reference="K9F-zs-JlZ"/>
     </inferredMetricsTieBreakers>
     <resources>
