@@ -75,7 +75,7 @@ class ChatViewController: MessagesViewController {
                       displayName: "Me")
     }
     
-    init(with email: String, id: String?) {
+    public init(with email: String, id: String?) {
         self.conversationId = id
         self.otherUserEmail = email
         super.init(nibName: nil, bundle: nil)

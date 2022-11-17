@@ -550,8 +550,8 @@ struct ChatAppUser{
     let cleaning: String
     let overnight: String
     let room: String
-    let p: Float
-    let house: Float
+    let p: String
+    let house: String
     let t: String
     let worst: String
     let breaker: String

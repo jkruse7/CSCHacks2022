@@ -633,7 +633,7 @@
         <!--Messages-->
         <scene sceneID="Ucp-de-J7t">
             <objects>
-                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="06R-ML-ucL" customClass="ChatViewController" customModule="messageTesting" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="06R-ML-ucL" customClass="ConversationsViewController" customModule="messageTesting" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tHh-74-mpz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1499,7 +1499,6 @@
                         <outlet property="picker" destination="mvV-bG-YJb" id="aBs-33-SXG"/>
                         <outlet property="tapMeButton" destination="i9e-C4-LvO" id="K93-7T-HGb"/>
                         <outlet property="temp" destination="YGJ-s1-YCd" id="d6v-Q9-iYe"/>
-                        <outlet property="yea" destination="ubI-Mq-uef" id="CMw-nI-bUn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEN-bj-H2I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1509,7 +1508,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="1Y3-Gc-Hu8"/>
-        <segue reference="K9F-zs-JlZ"/>
+        <segue reference="TUu-MF-Sxg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="benchmark-2.png" width="567" height="293"/>

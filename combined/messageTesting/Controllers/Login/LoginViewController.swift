@@ -165,9 +165,6 @@ class LoginViewController: UIViewController {
             
             print("Logged in user: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-            //strongSelf!.navigationController?.present(MatchesViewController(), animated: true, completion: nil)
-            //in here we need to send the user to the chats controller -- segue to the chats controller
-            //self!.present(MatchesViewController(), animated: true, completion: nil)
         })
     }
     
@@ -192,5 +189,8 @@ extension LoginViewController: UITextFieldDelegate{
         }
         
         return true
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        loginButtonTapped()
     }
 }

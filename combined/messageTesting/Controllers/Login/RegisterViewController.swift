@@ -115,7 +115,6 @@ class RegisterViewController: UIViewController {
         title = "Register"
         view.backgroundColor = .white
 
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         
         emailField.delegate = self
         passwordField.delegate = self
@@ -198,12 +197,14 @@ class RegisterViewController: UIViewController {
                 
                 guard authResult != nil, error == nil else{
                     print("Error creating user")
+                    //should break here
                     return
                 }
+                print("yo im here dude")
                 let chatUser = ChatAppUser(firstName: firstName,
                     lastName: lastName,
                     emailAddress: email, year: "",
-                                           firstPref: "", secondPref: "", Gender: "", day:"", drink:"", cleaning:"", overnight:"", room:"", p: 0, house: 0, t: "", worst: "", breaker:""
+                                           firstPref: "", secondPref: "", Gender: "", day:"", drink:"", cleaning:"", overnight:"", room:"", p: "", house: "", t: "", worst: "", breaker:""
                             
                 )
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success  in
@@ -239,18 +240,6 @@ class RegisterViewController: UIViewController {
         
         present(alert, animated: true)
     }
-    
-    @objc private func didTapRegister() {
-        let vc = QuestionsViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        present(nav, animated: false)
-//        let vc = QuestionsViewController()
-////        vc.title = "create account"
-//        navigationController?.pushViewController(vc, animated: true)
-        // here should send to the questionsview controller
-    }
-    
 
 }
 
@@ -266,7 +255,6 @@ extension RegisterViewController: UITextFieldDelegate{
         return true
     }
 }
-
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -308,6 +296,8 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         picker.dismiss(animated: true, completion: nil)
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        registerButtonTapped()
+    }
 
 }

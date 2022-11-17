@@ -39,6 +39,11 @@ class MyProfileViewController: UIViewController {
         }
         
     private func profileSetUp(){
+        DatabaseManager.shared.database.child("users/0").observe(.value, with: { (snapshot) in
+                    print("PRINT")
+                    print (snapshot.value as! [String:AnyObject]?)
+                    print("END PRINT")
+                })
         
     }
         

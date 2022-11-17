@@ -47,16 +47,11 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.picker.delegate = self
         self.picker.dataSource = self
         pickerData = ["1", "2", "3", "4", "5", "6"]
+        print("im here")
         refArtists = Database.database().reference()
         
     }
-    override func viewDidAppear(_ animated: Bool)
-    {
-        super.viewDidAppear(animated)
-        
-        validateAuth()
-                
-    }
+
     
     private func validateAuth(){
         if FirebaseAuth.Auth.auth().currentUser == nil{
@@ -65,11 +60,6 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: false)
-        }
-        else{
-            print("logged in")
-            // PRESS THE BUTTON BY ITSELFFFFFFFFFFFFFFFFFFFFF
-            
         }
     }
         // Do any additional setup after loading the view.
@@ -430,6 +420,7 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let curr = current.replacingOccurrences(of: "@", with: "-")
         refArtists.child(curr).setValue(user)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let year =  tapMeButton.currentTitle
         let firstPref = FirstPref.currentTitle
