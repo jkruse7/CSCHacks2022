@@ -1,6 +1,6 @@
-# CSC Hacks Sample Project Repo
+# Mmates
 ## Project Description
-*We worked on creating an IOS app that is a roommate tinder, allowing students at Pitt to match with other people looking for roommates. 
+We built an app, called Mmates, which allows you to swipe on people to find roommates. You sign in/register, and that stores all your data into a database. Then, we match you with other users depending on their responses to certain questions. You then have the ability to swipe on them and message them. 
 
 ## Team Information
 Ruchi Hegde
