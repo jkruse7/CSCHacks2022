@@ -9,7 +9,7 @@ import UIKit
 
 class MatchesViewController: UIViewController {
     
-    var profiles : [String] = ["Judy", "Freshman", "Benedum", "Thaw", "2", "No", "Morning Person", "Clean Person", "Drinking/Smoking Okay", "No ovenright guests", "0.8", "0.5", "26", "I snore", "My roommate cannot cry inf ront of me."]
+    //var profiles : [String] = ["Judy", "Freshman", "Benedum", "Thaw", "2", "No", "Morning Person", "Clean Person", "Drinking/Smoking Okay", "No ovenright guests", "0.8", "0.5", "26", "I snore", "My roommate cannot cry inf ront of me."]
     
     @IBOutlet weak var Name: UILabel!
     @IBOutlet weak var Year: UILabel!
@@ -139,15 +139,17 @@ class MatchesViewController: UIViewController {
 }
 @IBAction func switchView(_ sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex{
+        var intIndex = 0
     case 0:
-        var topUserEmail = topFive[0].key //doubt this works
+        let index = topFive.index(topFive.startIndex, offsetBy: intIndex)
+        var topUserEmail = topFive.keys[index] //doubt this works
         var topUser: [String:String]
         DatabaseManager.shared.database.child(topUserEmail).observe(.value, with: { (snapshot) in
             
             topUser = (snapshot.value as! [String:String])
             
         })
-        Name.text = topUser["first_name"]
+        Name.text = (topUser["first_name"] +" " +  topUser["last_name"])
         Year.text = topUser["Year"]
         FirstPref.text = topUser["First Preference"]
         SecondPref.text = topUser["Second Preference"]
@@ -167,14 +169,17 @@ class MatchesViewController: UIViewController {
         break;
         
     case 1:
-        var topUserEmail = topFive[1].key //doubt this works
+        intIndex += 1
+        let index = topFive.index(topFive.startIndex, offsetBy: intIndex)
+        var topUserEmail = topFive.keys[index]
+        //var topUserEmail = topFive[1].key //doubt this works
         var topUser: [String:String]
         DatabaseManager.shared.database.child(topUserEmail).observe(.value, with: { (snapshot) in
             
             topUser = (snapshot.value as! [String:String])
             
         })
-        Name.text = topUser["first_name"]
+        Name.text = (topUser["first_name"] +" " +  topUser["last_name"])
         Year.text = topUser["Year"]
         FirstPref.text = topUser["First Preference"]
         SecondPref.text = topUser["Second Preference"]
@@ -193,14 +198,17 @@ class MatchesViewController: UIViewController {
         dealBreaker.text = topUser["dealbreaker"]
         break;
     case 2:
-        var topUserEmail = topFive[2].key //doubt this works
+        intIndex += 1
+        let index = topFive.index(topFive.startIndex, offsetBy: intIndex)
+        var topUserEmail = topFive.keys[index]
+        //var topUserEmail = topFive[2].key //doubt this works
         var topUser: [String:String]
         DatabaseManager.shared.database.child(topUserEmail).observe(.value, with: { (snapshot) in
             
             topUser = (snapshot.value as! [String:String])
             
         })
-        Name.text = topUser["first_name"]
+        Name.text = (topUser["first_name"] +" " +  topUser["last_name"])
         Year.text = topUser["Year"]
         FirstPref.text = topUser["First Preference"]
         SecondPref.text = topUser["Second Preference"]
@@ -219,14 +227,17 @@ class MatchesViewController: UIViewController {
         dealBreaker.text = topUser["dealbreaker"]
         break;
     case 3:
-        var topUserEmail = topFive[3].key //doubt this works
+        intIndex += 1
+        let index = topFive.index(topFive.startIndex, offsetBy: intIndex)
+        var topUserEmail = topFive.keys[index]
+        //var topUserEmail = topFive[3].key //doubt this works
         var topUser: [String:String]
         DatabaseManager.shared.database.child(topUserEmail).observe(.value, with: { (snapshot) in
             
             topUser = (snapshot.value as! [String:String])
             
         })
-        Name.text = topUser["first_name"]
+        Name.text = (topUser["first_name"] +" " +  topUser["last_name"])
         Year.text = topUser["Year"]
         FirstPref.text = topUser["First Preference"]
         SecondPref.text = topUser["Second Preference"]
@@ -245,14 +256,17 @@ class MatchesViewController: UIViewController {
         dealBreaker.text = topUser["dealbreaker"]
         break;
     case 4:
-        var topUserEmail = topFive[4].key //doubt this works
+        intIndex += 1
+        let index = topFive.index(topFive.startIndex, offsetBy: intIndex)
+        var topUserEmail = topFive.keys[index]
+        //var topUserEmail = topFive[4].key //doubt this works
         var topUser: [String:String]
         DatabaseManager.shared.database.child(topUserEmail).observe(.value, with: { (snapshot) in
             
             topUser = (snapshot.value as! [String:String])
             
         })
-        Name.text = topUser["first_name"]
+        Name.text = (topUser["first_name"] +" " +  topUser["last_name"])
         Year.text = topUser["Year"]
         FirstPref.text = topUser["First Preference"]
         SecondPref.text = topUser["Second Preference"]
