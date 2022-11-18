@@ -1,10 +1,8 @@
-//
-//  LoginViewController.swift
+////  LoginViewController.swift
 //  messageTesting
 //
 //  Created by Stella Bailey on 11/12/22.
 //
-
 import UIKit
 import FirebaseAuth
 import JGProgressHUD
@@ -59,45 +57,47 @@ class LoginViewController: UIViewController {
         return field
     }()
     
+    private let login: UIButton = {
+        let button = UIButton()
+                 button.setTitle("Log In", for: .normal)
+                 button.backgroundColor = .link
+                 button.setTitleColor(.white, for: .normal)
+                 button.layer.cornerRadius = 12
+                 button.layer.masksToBounds = true
+                 button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+                 return button
+    }()
     
-    @IBOutlet weak var loginButton: UIButton!
-    private func configureButton(){
-        loginButton.setTitle("Log In", for: .normal)
-        loginButton.backgroundColor = .link
-        loginButton.setTitleColor(.white, for: .normal)
-        loginButton.layer.cornerRadius = 12
-        loginButton.layer.masksToBounds = true
-        loginButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-    }
-    
-    @IBOutlet weak var register: UIButton!
-    private func configureRegister(){
-        register.setTitle("Register New User", for: .normal)
-        register.backgroundColor = .red
-        register.setTitleColor(.white, for: .normal)
-        register.layer.cornerRadius = 12
-        register.layer.masksToBounds = true
-        register.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-    }
-    
+    private let register: UIButton = {
+        let reg = UIButton()
+                 reg.setTitle("Register", for: .normal)
+                 reg.backgroundColor = .red
+                 reg.setTitleColor(.white, for: .normal)
+                 reg.layer.cornerRadius = 12
+                 reg.layer.masksToBounds = true
+                 reg.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+                 return reg
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureButton()
-        configureRegister()
-        title = "Log in"
-        view.backgroundColor = .white
-        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
-        
-        emailField.delegate = self
-        passwordField.delegate = self
-        
-        // Ad subviews
-        view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(emailField)
-        scrollView.addSubview(passwordField)
-        scrollView.addSubview(loginButton)
-        scrollView.addSubview(register)
+                title = "Log in"
+                view.backgroundColor = .white
+
+                
+
+                login.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+            register.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+
+                emailField.delegate = self
+                passwordField.delegate = self
+
+                // Ad subviews
+                view.addSubview(scrollView)
+                scrollView.addSubview(imageView)
+                scrollView.addSubview(emailField)
+                scrollView.addSubview(passwordField)
+                scrollView.addSubview(login)
+                scrollView.addSubview(register)
     }
     
     override func viewDidLayoutSubviews() {
@@ -111,10 +111,9 @@ class LoginViewController: UIViewController {
         
         passwordField.frame = CGRect(x: 30, y:  emailField.bottom+10, width: scrollView.width-60, height: 52)
         
-        loginButton.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
+        login.frame = CGRect(x: 30, y: passwordField.bottom+10, width: scrollView.width-60, height: 52)
         
-        register.frame = CGRect(x: 30, y: loginButton.bottom+1, width: scrollView.width-60, height: 52)
-        
+        register.frame = CGRect(x: 30, y: login.bottom+10, width: scrollView.width-60, height: 52)
     }
     
     @objc private func loginButtonTapped() {
@@ -138,8 +137,10 @@ class LoginViewController: UIViewController {
                 strongSelf.spinner.dismiss()
             }
             guard let result = authResult, error == nil else{
+                //strongSelf.alertUserLoginError()
                 print("failed to log in user with email")
                 //should not move to next page
+                
                 return
             }
             
@@ -164,7 +165,7 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.set(email, forKey: "email")   // saves the user's email
             
             print("Logged in user: \(user)")
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            self!.performSegue(withIdentifier: "login", sender: self)
         })
     }
     
@@ -175,8 +176,9 @@ class LoginViewController: UIViewController {
         
         present(alert, animated: true)
     }
-    
-    
+    @objc private func didTapRegister() {
+        self.performSegue(withIdentifier: "register", sender: self)
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate{
@@ -191,6 +193,5 @@ extension LoginViewController: UITextFieldDelegate{
         return true
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        loginButtonTapped()
     }
 }

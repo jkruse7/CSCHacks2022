@@ -535,7 +535,25 @@ extension DatabaseManager {
         })
     }
 }
-
+func getFirstName() -> String{
+        guard let name = UserDefaults.standard.value(forKey: "name") as? String else {
+            return ""
+        }
+        
+        let parts = name.split(separator: " ")
+        
+        return String(parts[0])
+    }
+    
+func getLastName() -> String{
+        guard let name = UserDefaults.standard.value(forKey: "name") as? String else {
+            return ""
+        }
+        
+        let parts = name.split(separator: " ")
+        
+        return String(parts[1])
+    }
 
 struct ChatAppUser{
     let firstName: String

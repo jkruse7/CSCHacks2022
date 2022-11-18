@@ -20,6 +20,9 @@ class RegisterViewController: UIViewController {
         scrollView.clipsToBounds = true
         return scrollView
     }()
+    @IBAction func registers(_ sender: Any) {
+        registerButtonTapped()
+    }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -108,13 +111,13 @@ class RegisterViewController: UIViewController {
         reg.layer.masksToBounds = true
         reg.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureReg()
         title = "Register"
         view.backgroundColor = .white
-
+        
         
         emailField.delegate = self
         passwordField.delegate = self
@@ -148,14 +151,14 @@ class RegisterViewController: UIViewController {
         imageView.layer.cornerRadius = imageView.width/2.0
         firstNameField.frame = CGRect(x: 30, y:  imageView.bottom+10, width: scrollView.width-60, height: 52)
         lastNameField.frame = CGRect(x: 30, y:  firstNameField.bottom+10, width: scrollView.width-60, height: 52)
-
+        
         
         emailField.frame = CGRect(x: 30, y:  lastNameField.bottom+10, width: scrollView.width-60, height: 52)
         
         passwordField.frame = CGRect(x: 30, y:  emailField.bottom+10, width: scrollView.width-60, height: 52)
-
+        
         reg.frame = CGRect(x: 30, y:  passwordField.bottom+10, width: scrollView.width-60, height: 52)
-
+        
     }
     
     @objc private func registerButtonTapped() {
@@ -173,13 +176,14 @@ class RegisterViewController: UIViewController {
               !firstName.isEmpty,
               !lastName.isEmpty,
               password.count >= 6
-            else{
+        else{
             alertUserLoginError()
             return
         }
         first = firstName
         last = lastName
         spinner.show(in: view)
+        
         //Firebase login
         DatabaseManager.shared.userExists(with: email, completion: {[weak self] exists in
             guard let strongSelf = self else {
@@ -194,7 +198,6 @@ class RegisterViewController: UIViewController {
                 return
             }
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
-                
                 guard authResult != nil, error == nil else{
                     print("Error creating user")
                     //should break here
@@ -202,10 +205,10 @@ class RegisterViewController: UIViewController {
                 }
                 print("yo im here dude")
                 let chatUser = ChatAppUser(firstName: firstName,
-                    lastName: lastName,
-                    emailAddress: email, year: "",
+                                           lastName: lastName,
+                                           emailAddress: email, year: "",
                                            firstPref: "", secondPref: "", Gender: "", day:"", drink:"", cleaning:"", overnight:"", room:"", p: "", house: "", t: "", worst: "", breaker:""
-                            
+                                           
                 )
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success  in
                     if success {
@@ -226,21 +229,18 @@ class RegisterViewController: UIViewController {
                     }
                 })
                 
-                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
-
             })
         })
         
-        }
+    }
     
     func alertUserLoginError(message: String = "Please enter all information to create a new account"){
         let alert = UIAlertController(title: "Woops", message: message, preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title:"Dismiss", style: .cancel, handler: nil))
         
         present(alert, animated: true)
     }
-
+    
 }
 
 extension RegisterViewController: UITextFieldDelegate{
@@ -296,8 +296,4 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         picker.dismiss(animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        registerButtonTapped()
-    }
-
 }

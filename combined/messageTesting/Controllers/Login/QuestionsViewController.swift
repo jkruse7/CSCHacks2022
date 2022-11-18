@@ -13,16 +13,22 @@ import FirebaseDatabase
 
 class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-            // Dispose of any resources that can be recreated.
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+    
     var count = 0
-    let profile = RegisterViewController()
-    @IBOutlet weak var temp: UITextField!
-    @IBOutlet weak var deal: UITextField!
-    @IBOutlet weak var party: UISlider!
-    @IBOutlet weak var home: UISlider!
-    @IBOutlet weak var habit: UITextField!
+    
+    // MARK: Importing name fields
+    let firstName = getFirstName()
+    let lastName = getLastName()
+    
+    // MARK: Other initializing stuff:
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    var pickerData: [String] = [String]()
+    var refArtists: DatabaseReference!
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -35,23 +41,20 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         return pickerData[row]
     }
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
-    @IBOutlet weak var picker: UIPickerView!
-    var pickerData: [String] = [String]()
-    var refArtists: DatabaseReference!
-//    var user: User?
     override func viewDidLoad() {
         super.viewDidLoad()
-//        validateAuth()
         self.picker.delegate = self
         self.picker.dataSource = self
         pickerData = ["1", "2", "3", "4", "5", "6"]
-        print("im here")
         refArtists = Database.database().reference()
+    }
+    override func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        
+        validateAuth()
         
     }
-
     
     private func validateAuth(){
         if FirebaseAuth.Auth.auth().currentUser == nil{
@@ -61,16 +64,77 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: false)
         }
+        else{
+            print("logged in")
+            // PRESS THE BUTTON BY ITSELFFFFFFFFFFFFFFFFFFFFF
+            
+        }
     }
-        // Do any additional setup after loading the view.
-    // MARK: - Navigation
+    
+    // MARK: FRAME STUFF
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        yearString.frame = CGRect(x: 25, y: 75, width: 350, height: 40)
+        tapMeButton.frame = (CGRect(x: 25, y: yearString.bottom, width: 350, height: 40))
+        
+        topTwoString.frame = CGRect(x: 25, y: tapMeButton.bottom + 25, width: 350, height: 40)
+        firstPrefString.frame = CGRect(x: 25, y: topTwoString.bottom, width: 350, height: 40)
+        FirstPref.frame = (CGRect(x: 25, y: firstPrefString.bottom, width: 350, height: 40))
+        
+        secondPrefString.frame = CGRect(x: 25, y: FirstPref.bottom, width: 350, height: 40)
+        SecondPref.frame = (CGRect(x: 25, y: secondPrefString.bottom, width: 350, height: 40))
+        
+        numRoomates.frame = CGRect(x: 25, y: SecondPref.bottom + 25, width: 350, height: 40)
+        picker.frame = CGRect(x: 25, y: numRoomates.bottom, width: 350, height: 75)
+        
+        bioString.frame = CGRect(x: 25, y: picker.bottom + 15, width: 350, height: 40)
+        bio.frame = CGRect(x: 25, y: bioString.bottom, width: 350, height: 40)
+        
+        genderString.frame = CGRect(x: 25, y: (bio.bottom + 25), width: 350, height: 40)
+        gender.frame = (CGRect(x: 25, y: genderString.bottom, width: 350, height: 40))
+        
+        cleanString.frame = CGRect(x: 25, y: gender.bottom + 25, width: 350, height: 40)
+        clean.frame = (CGRect(x: 25, y: cleanString.bottom, width: 350, height: 40))
+        
+        morningString.frame = CGRect(x: 25, y: clean.bottom + 25, width: 350, height: 40)
+        morning.frame = (CGRect(x: 25, y: morningString.bottom, width: 350, height: 40))
+        
+        habitString.frame = CGRect(x: 25, y: morning.bottom + 25, width: 350, height: 40)
+        habit.frame = CGRect(x: 25, y: habitString.bottom, width: 350, height: 40)
+        
+        partyString.frame = CGRect(x: 25, y: habit.bottom + 25, width: 350, height: 40)
+        party.frame = CGRect(x: 25, y: partyString.bottom, width: 350, height: 40)
+        
+        dealString.frame = CGRect(x: 25, y: party.bottom + 25, width: 350, height: 40)
+        deal.frame = CGRect(x: 25, y: dealString.bottom, width: 350, height: 40)
+        
+        tempString.frame = CGRect(x: 25, y: deal.bottom + 25, width: 350, height: 40)
+        temp.frame = CGRect(x: 25, y: tempString.bottom, width: 350, height: 40)
+        
+        homeString.frame = CGRect(x: 25, y: temp.bottom + 25, width: 350, height: 40)
+        home.frame = CGRect(x: 25, y: homeString.bottom, width: 350, height: 40)
+        
+        guestString.frame = CGRect(x: 25, y: home.bottom + 25, width: 350, height: 40)
+        guest.frame = (CGRect(x: 25, y: guestString.bottom, width: 350, height: 40))
+        
+        drugsString.frame = CGRect(x: 25, y: (guest.bottom + 25), width: 350, height: 40)
+        drugs.frame = (CGRect(x: 25, y: drugsString.bottom, width: 350, height: 40))
+        
+        profileButton.frame = CGRect(x: 120, y: drugs.bottom + 25, width: 200, height: 40)
+    }
+    
+    // MARK: Year
+    @IBOutlet weak var yearString: UILabel!
     @IBOutlet weak var tapMeButton: UIButton!
+    
     func configureTapMeButton(){
+        yearString.textAlignment = .left
+        yearString.font = .systemFont(ofSize: 18, weight: .bold)
+        
         tapMeButton.layer.borderColor = UIColor.lightGray.cgColor
         tapMeButton.layer.borderWidth = 2
         tapMeButton.layer.cornerRadius = 12
-        tapMeButton.frame = (CGRect(x: 26, y: 125, width: 350, height: 40))
-
     }
     func configureTapMeButtonMenu() {
         let option1 = UIAction(title: "Freshman") { (action) in
@@ -92,13 +156,25 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         tapMeButton.menu = menu
     }
     
+    // MARK: Dorm preferenecs
+    @IBOutlet weak var topTwoString: UILabel!
+    
+    @IBOutlet weak var firstPrefString: UILabel!
     @IBOutlet weak var FirstPref: UIButton!
+    
+    @IBOutlet weak var secondPrefString: UILabel!
+    @IBOutlet weak var SecondPref: UIButton!
+    
     func configureFirstPrefButton(){
+        topTwoString.textAlignment = .left
+        topTwoString.font = .systemFont(ofSize: 18, weight: .bold)
+        
+        firstPrefString.textAlignment = .left
+        firstPrefString.font = .systemFont(ofSize: 15, weight: .light)
+        
         FirstPref.layer.borderColor = UIColor.lightGray.cgColor
         FirstPref.layer.borderWidth = 2
         FirstPref.layer.cornerRadius = 12
-        FirstPref.frame = (CGRect(x: 32, y: 253, width: 350, height: 40))
-
     }
     func configureFirstPreferenceButtonMenu() {
         let option1 = UIAction(title: "Amos Hall") { (action) in
@@ -180,13 +256,13 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         FirstPref.menu = menu
     }
     
-    @IBOutlet weak var SecondPref: UIButton!
     func configureSecondPrefButton(){
+        secondPrefString.textAlignment = .left
+        secondPrefString.font = .systemFont(ofSize: 15, weight: .light)
+        
         SecondPref.layer.borderColor = UIColor.lightGray.cgColor
         SecondPref.layer.borderWidth = 2
         SecondPref.layer.cornerRadius = 12
-        SecondPref.frame = (CGRect(x: 32, y: 331, width: 350, height: 40))
-
     }
     func configureSecondPreferenceButtonMenu() {
         let option1 = UIAction(title: "Amos Hall") { (action) in
@@ -267,12 +343,35 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let menu = UIMenu(title: "Select your second preference", children: [option1, option2, option3, option4, option5, option6, option7, option8, option9, option10, option11, option12, option13, option14, option15, option16, option17, option18, option19, option20, option21, option22, option23, option24, option25])
         SecondPref.menu = menu
     }
+    
+    // MARK: Number of roommates string & field
+    @IBOutlet weak var numRoomates: UILabel!
+    @IBOutlet weak var picker: UIPickerView!
+    func configureRoommates() {
+        numRoomates.textAlignment = .left
+        numRoomates.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Bio string & field
+    @IBOutlet weak var bioString: UILabel!
+    @IBOutlet weak var bio: UITextField!
+    
+    func configureBio(){
+        bioString.textAlignment = .left
+        bioString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Gender string & field
+    @IBOutlet weak var genderString: UILabel!
     @IBOutlet weak var gender: UIButton!
+    
     func configureGenderButton(){
+        genderString.textAlignment = .left
+        genderString.font = .systemFont(ofSize: 18, weight: .bold)
+        
         gender.layer.borderColor = UIColor.lightGray.cgColor
         gender.layer.borderWidth = 2
         gender.layer.cornerRadius = 12
-        gender.frame = (CGRect(x: 31, y: 561, width: 350, height: 40))
     }
     func configureGenderButtonMenu() {
         let option1 = UIAction(title: "Girl") { (action) in
@@ -288,52 +387,17 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         gender.menu = menu
     }
     
-    @IBOutlet weak var morning: UIButton!
-    func configurePersonButton(){
-        morning.layer.borderColor = UIColor.lightGray.cgColor
-        morning.layer.borderWidth = 2
-        morning.layer.cornerRadius = 12
-        morning.frame = (CGRect(x: 31, y: 703, width: 350, height: 40))
-
-    }
-    func configurePersonButtonMenu() {
-        let option1 = UIAction(title: "morning person") { (action) in
-            self.morning.setTitle("morning person", for: .normal)
-        }
-        let option2 = UIAction(title: "night person") { (action) in
-            self.morning.setTitle("night person", for: .normal)
-        }
-        let menu = UIMenu(title: "Are you a morning or night person?", children: [option1, option2])
-        morning.menu = menu
-    }
-    
-    
-    @IBOutlet weak var drugs: UIButton!
-    func configureDrugsButton(){
-        drugs.layer.borderColor = UIColor.lightGray.cgColor
-        drugs.layer.borderWidth = 2
-        drugs.layer.cornerRadius = 12
-        drugs.frame = (CGRect(x: 31, y: 772, width: 350, height: 40))
-    }
-    func configureDrugsButtonMenu() {
-        let option1 = UIAction(title: "Yes") { (action) in
-            self.drugs.setTitle("Yes", for: .normal)
-        }
-        let option2 = UIAction(title: "No") { (action) in
-            self.drugs.setTitle("No", for: .normal)
-        }
-        let menu = UIMenu(title: "Do you have a drugs/alcohol preference?", children: [option1, option2])
-        drugs.menu = menu
-    }
-    
-    
+    // MARK: Clean string & field
+    @IBOutlet weak var cleanString: UILabel!
     @IBOutlet weak var clean: UIButton!
+    
     func configureCleanButton(){
+        cleanString.textAlignment = .left
+        cleanString.font = .systemFont(ofSize: 18, weight: .bold)
+        
         clean.layer.borderColor = UIColor.lightGray.cgColor
         clean.layer.borderWidth = 2
         clean.layer.cornerRadius = 12
-        clean.frame = (CGRect(x: 29, y: 841, width: 350, height: 40))
-
     }
     func configureCleanButtonMenu() {
         let option1 = UIAction(title: "Clean") { (action) in
@@ -349,13 +413,85 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         clean.menu = menu
     }
     
+    // MARK: Morning string & field
+    @IBOutlet weak var morningString: UILabel!
+    @IBOutlet weak var morning: UIButton!
+    
+    func configurePersonButton(){
+        morningString.textAlignment = .left
+        morningString.font = .systemFont(ofSize: 18, weight: .bold)
+        
+        morning.layer.borderColor = UIColor.lightGray.cgColor
+        morning.layer.borderWidth = 2
+        morning.layer.cornerRadius = 12
+    }
+    func configurePersonButtonMenu() {
+        let option1 = UIAction(title: "morning person") { (action) in
+            self.morning.setTitle("morning person", for: .normal)
+        }
+        let option2 = UIAction(title: "night person") { (action) in
+            self.morning.setTitle("night person", for: .normal)
+        }
+        let menu = UIMenu(title: "Are you a morning or night person?", children: [option1, option2])
+        morning.menu = menu
+    }
+    
+    // MARK: Habit string & field
+    @IBOutlet weak var habitString: UILabel!
+    @IBOutlet weak var habit: UITextField!
+    
+    func configureHabit(){
+        habitString.textAlignment = .left
+        habitString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Party string & field
+    @IBOutlet weak var partyString: UILabel!
+    @IBOutlet weak var party: UISlider!
+    
+    func configureParty(){
+        partyString.textAlignment = .left
+        partyString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Dealbreaker string & field
+    @IBOutlet weak var dealString: UILabel!
+    @IBOutlet weak var deal: UITextField!
+    
+    func configureDeal(){
+        dealString.textAlignment = .left
+        dealString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Temperature string & field
+    @IBOutlet weak var tempString: UILabel!
+    @IBOutlet weak var temp: UITextField!
+    
+    func configureTemp(){
+        tempString.textAlignment = .left
+        tempString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Home string & field
+    @IBOutlet weak var homeString: UILabel!
+    @IBOutlet weak var home: UISlider!
+    
+    func configureHome(){
+        homeString.textAlignment = .left
+        homeString.font = .systemFont(ofSize: 18, weight: .bold)
+    }
+    
+    // MARK: Guests string & field
+    @IBOutlet weak var guestString: UILabel!
     @IBOutlet weak var guest: UIButton!
+    
     func configureGuestsButton(){
+        guestString.textAlignment = .left
+        guestString.font = .systemFont(ofSize: 18, weight: .bold)
+        
         guest.layer.borderColor = UIColor.lightGray.cgColor
         guest.layer.borderWidth = 2
         guest.layer.cornerRadius = 12
-        guest.frame = (CGRect(x: 29, y: 907, width: 350, height: 40))
-
     }
     func configureGuestsButtonMenu() {
         let option1 = UIAction(title: "Yes") { (action) in
@@ -371,6 +507,36 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         guest.menu = menu
     }
     
+    // MARK: Drinking/drugs string & field
+    @IBOutlet weak var drugsString: UILabel!
+    @IBOutlet weak var drugs: UIButton!
+    
+    func configureDrugsButton(){
+        drugsString.textAlignment = .left
+        drugsString.font = .systemFont(ofSize: 18, weight: .bold)
+        
+        drugs.layer.borderColor = UIColor.lightGray.cgColor
+        drugs.layer.borderWidth = 2
+        drugs.layer.cornerRadius = 12
+    }
+    func configureDrugsButtonMenu() {
+        let option1 = UIAction(title: "Yes") { (action) in
+            self.drugs.setTitle("Yes", for: .normal)
+        }
+        let option2 = UIAction(title: "No") { (action) in
+            self.drugs.setTitle("No", for: .normal)
+        }
+        let menu = UIMenu(title: "Do you have a drugs/alcohol preference?", children: [option1, option2])
+        drugs.menu = menu
+    }
+    
+    // MARK: CREATE PROFILE BUTTON
+    @IBOutlet weak var profileButton: UIButton!
+    func configureProfileButton() {
+        profileButton.center = self.view.center
+    }
+    
+    // MARK: Configure EVERYTHING
     override func viewWillAppear(_ animated: Bool) {
         configureTapMeButton()
         configureTapMeButtonMenu()
@@ -388,6 +554,15 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         configureCleanButtonMenu()
         configureGuestsButton()
         configureGuestsButtonMenu()
+        
+        configureRoommates()
+        configureBio()
+        configureHome()
+        configureTemp()
+        configureDeal()
+        configureParty()
+        configureHabit()
+        configureProfileButton()
     }
     
     
@@ -398,8 +573,8 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func updateProfile(year: String, firstPref: String, secondPref: String, Gender: String, morning: String, drink: String, clean: String, guests: String, room: String, p: String, house: String, t: String, worst: String, breaker: String){
         let user = [
-            "first_name": profile.first,
-            "last_name": profile.last,
+            "first_name": firstName,
+            "last_name": lastName,
             "First Preference": firstPref,
             "Second Preference": secondPref,
             "Gender": Gender,
@@ -420,7 +595,6 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let curr = current.replacingOccurrences(of: "@", with: "-")
         refArtists.child(curr).setValue(user)
     }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let year =  tapMeButton.currentTitle
         let firstPref = FirstPref.currentTitle
@@ -436,9 +610,9 @@ class QuestionsViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let t = temp.text
         let worst = habit.text
         let breaker = deal.text
-
+        
         updateProfile(year: year!, firstPref: firstPref!, secondPref: secondPref!, Gender: Gender!, morning: day!, drink: drink!, clean: cleaning!, guests: overnight!, room: room, p: p, house: house, t: t!, worst: worst!, breaker: breaker!)
         
     }
-
+    
 }
