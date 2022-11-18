@@ -9,13 +9,14 @@ import SwiftUI
 import UIKit
 struct TinderView: View {
     private var people: [String] = ["Mario", "Luigi", "Peach"]
+    
     //Above will need to be changed with a list of each profile/profile id to display
     var body: some View {
         
         VStack{
             ZStack{
                 //storyBoardView().edgesIgnoringSafeArea(.all)
-                ForEach(people, id: \.self){person in CardView(person:person) //goes through each string in list -- don't change
+                ForEach(allMatches, id: \.self){person in CardView(person:person) //goes through each string in list -- don't change
                 }
                 }
                     
@@ -54,34 +55,39 @@ struct CardView: View {
                 .shadow(radius: 4)
             HStack{
                 ScrollView {
-                    Text(person)
+                    var currUser: [String:String]
+                    let currUserEmail = person.key // probably not work?
+                    DatabaseManager.shared.database.child(currUserEmail).observe(.value, with: { (snapshot) in
+                        
+                        currUser = (snapshot.value as! [String:String])
+                        
+                    })
                     //person is user id/whatever we use to access user. will need to be like get user with that id's name
                     //insert image??
                     
-                    Text("Year: " + "Freshman")
-                    Text("First Preference: " + "Building")
-                    Text("Second Preference: " + "Build")
-                    Text("Number of Roommates: " + "2")
-                    Text("Preferred roommmate gender: " + "Girl")
+                    Text("Year: " + currUser["Year"])
+                    Text("First Preference: " + currUser["First Preference"])
+                    Text("Second Preference: " + currUser["Second Preference"])
+                    Text("Number of Roommates: " + currUser["Room"])
+                    Text("Preferred roommmate gender: " + currUser["Gender"])
                     Text("Personality")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    /*
-                    Text(person.morning)
-                    Text(person.clean)
-                    Text("Can my roommate drink or smoke? " + person.drink)
-                    Text("Overnight Guests? " + person.guests)
+                    Text(currUser["Morning or Night"])
+                    Text(currUser["Clean or Messy"])
+                    Text("Can my roommate drink or smoke? " + currUser["Drugs and Drinks"])
+                    Text("Overnight Guests? " + currUser["Overnight"])
                     Text("How often they are home:")
+                    let home = currUser["home"].replacingOccurrences(of: "-", with: ".")
                     //insert a progress scale here
-                    ProgressView("", value: person.home, total: 1)
+                    ProgressView("", value: Float(home), total: 1)
+                    let party = currUser["party!"].replacingOccurrences(of: "-", with: ".")
                     Text("How often they party:")
                     //insert a progress scale here
-                    ProgressView("", value: person.party, total: 1)
+                    ProgressView("", value: Float(party), total: 1)
                     Text("Preferred room temperature" + person.temp)
-                    Text("Worst Habit:")
-                    Text(person.habit)
-                    Text("Deal Breaker: ")
-                    Text(person.breaker)*/
+                    Text("Worst Habit: " + currUser["worst"])
+                    Text("Deal Breaker: " + currUser["dealbreaker"])
                     }
                 .offset(y: 45)
                 .frame(width: 345)
